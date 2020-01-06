@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    {{ message }}
+    <ul v-for="todo in todos">
+        <!--调用组件-->
+        <todo-item :todo="todo.text"></todo-item>
+
+        <todo-item2 :todo="todo.text"></todo-item2>
+    </ul>
+  </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  //通过Vue.component创建组件
+  Vue.component('todo-item',{
+    //接口传参
+    props: ['todo'],
+    //组件模板
+    template: '<li>this is {{ todo }} item.</li>'
+  })
+
+  //通过js对象来创建局部组件
+  var TodoItem = {
+    props: ["todo"],
+    template: '<span>this is {{ todo }} item.</span>'
+  }
+
+  //创建对象绑定dom
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        message: "hello",
+        todos: [
+          { text: 'Learn Vue' },
+          { text: 'Learn Javascript' },
+          { text: 'Learn PHP' },
+          { text: 'Learn Golang' }
+        ]
+      }
+    },
+    //使用局部组件
+    components: {
+      'todo-item2': TodoItem
+    }
+  })
+</script>
+</html>

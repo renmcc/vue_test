@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    message:
+    <input type="text" v-model="message">
+    <br/>
+    reversedMessage is: {{ reversedMessage }}
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app7 = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello'
+    },
+    //不能接收参数，因为是根据依赖侦听的。计算属性会基于它的依赖进行缓存，无副作用。
+    computed: {
+      reversedMessage() {
+        return this.message.split('').reverse().join('')
+      }
+    },
+    //一种更通用的方式来观察和响应 Vue 实例上的数据变动。用于有副作用的操作，开销大的操作。
+    //computed 和 watch 区别：从属性名上，computed是计算属性，也就是依赖其它的属性计算所得出最后的值。
+    //watch是去监听一个值的变化，然后进行相应的操作。
+    watch: {
+      message() {
+        // do ohter something
+      }
+    },
+    methods: {
+      // reversedMessage: function () {
+      //   return this.message.split('').reverse().join('')
+      // }
+    }
+  })
+</script>
+</html>
